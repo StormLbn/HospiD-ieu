@@ -53,29 +53,20 @@ CREATE TABLE IF NOT EXISTS monitorings (
 INSERT INTO users
     (name, firstname, mail, password) 
 VALUES
-    ('Tournet', 'Julien', 'julien.tournet@hospidieu.fr', 'aze'),
-    ('Caudron', 'Mylène', 'mylene.caudron@hospidieu.fr', 'qsd'),
-    ('Lebrun', 'Sophie', 'sophie.lebrun@hospidieu.fr', 'wxc'),
-    ('Valinhas', 'Manuel', 'manuel.valinhas@hospidieu.fr', '123'),
-    ('Test', 'Admin', 'admintest@mail.com', '$2a$12$BK0FF9PlD3xhcHdcG7tP8.HHluZ.D52mPJohThLP1K09s6lmA.Xu2');
+    ('Test', 'Admin', 'admin@mail.com', '$2a$12$RyP5RrO5iNnJxziY5DxiOehuiGHmD0W9tMYzM0VWSihMAkHdADlee'),
+    ('Test', 'Infirmier', 'infirmier@mail.com', '$2a$12$RyP5RrO5iNnJxziY5DxiOehuiGHmD0W9tMYzM0VWSihMAkHdADlee'),
+    ('Test', 'Secrétaire', 'secretaire@mail.com', '$2a$12$RyP5RrO5iNnJxziY5DxiOehuiGHmD0W9tMYzM0VWSihMAkHdADlee');
 
 INSERT INTO roles (role_name) VALUES ('ROLE_INFIRMIER');
 INSERT INTO roles (role_name) VALUES ('ROLE_SECRETAIRE');
 INSERT INTO roles (role_name) VALUES ('ROLE_ADMIN');
 
 INSERT INTO users_roles
+	(ID_user, ID_role)
 VALUES 
-    (1, 1),
-    (1, 2),
     (1, 3),
     (2, 1),
-    (2, 2),
-    (2, 3),
-    (3, 2),
-    (4, 1),
-    (5, 1),
-    (5, 2),
-    (5, 3);
+    (3, 2);
 
 INSERT INTO patients
     (name, firstname, birth_date, address, postcode, city, phone, security_number)
@@ -92,66 +83,55 @@ VALUES
     ('Duck','Loulou', '2018-04-04', '4 rue Disney', 99000, 'Fakeville' ,'0399999999', '2999999999997');
 
 INSERT INTO beds
-    (bed_number, room_number, department)
+    (bed_number, room_number, department, ID_patient)
 VALUES
-    (1, 1, 'Urgences'),
-    (2, 1, 'Urgences'),
-    (3, 1, 'Urgences'),
-    (4, 1, 'Urgences'),
-    (1, 2, 'Urgences'),
-    (2, 2, 'Urgences'),
-    (3, 2, 'Urgences'),
-    (1, 3, 'Urgences'),
-    (2, 3, 'Urgences'),
-    (3, 3, 'Urgences'),
-    (1, 11, 'Traumatologie'),
-    (2, 11, 'Traumatologie'),
-    (1, 12, 'Traumatologie'),
-    (2, 12, 'Traumatologie'),
-    (1, 21, 'Pédiatrie'),
-    (1, 22, 'Pédiatrie'),
-    (1, 23, 'Pédiatrie'),
-    (1, 24, 'Pédiatrie'),
-    (1, 31, 'Maternité'),
-    (1, 32, 'Maternité'),
-    (1, 33, 'Maternité'),
-    (1, 34, 'Maternité'),
-    (1, 101, 'Cardiologie'),
-    (2, 101, 'Cardiologie'),
-    (1, 102, 'Cardiologie'),
-    (2, 102, 'Cardiologie'),
-    (1, 201, 'Neurologie'),
-    (1, 111, 'Neurologie'),
-    (2, 111, 'Neurologie'),
-    (1, 112, 'Neurologie'),
-    (2, 112, 'Médecine générale'),
-    (1, 201, 'Chirurgie'),
-    (2, 201, 'Chirurgie'),
-    (1, 202, 'Chirurgie'),
-    (2, 102, 'Chirurgie'),
-    (1, 301, 'Raclettologie');
-    
-INSERT INTO beds
-    (ID_bed, ID_patient)
-VALUES
-    (16, 9),
-    (15, 10),
-    (25, 3),
-    (1, 1)
-ON DUPLICATE KEY UPDATE ID_patient=VALUES(ID_patient);
+    (1, 1, 'Urgences', 1),
+    (2, 1, 'Urgences', null),
+    (3, 1, 'Urgences', null),
+    (4, 1, 'Urgences', null),
+    (1, 2, 'Urgences', null),
+    (2, 2, 'Urgences', null),
+    (3, 2, 'Urgences', null),
+    (1, 3, 'Urgences', null),
+    (2, 3, 'Urgences', null),
+    (3, 3, 'Urgences', null),
+    (1, 11, 'Traumatologie', null),
+    (2, 11, 'Traumatologie', null),
+    (1, 12, 'Traumatologie', null),
+    (2, 12, 'Traumatologie', null),
+    (1, 21, 'Pédiatrie', 10),
+    (1, 22, 'Pédiatrie', 9),
+    (1, 23, 'Pédiatrie', null),
+    (1, 24, 'Pédiatrie', null),
+    (1, 31, 'Maternité', null),
+    (1, 32, 'Maternité', null),
+    (1, 33, 'Maternité', null),
+    (1, 34, 'Maternité', null),
+    (1, 101, 'Cardiologie', 3),
+    (2, 101, 'Cardiologie', null),
+    (1, 102, 'Neurologie', null),
+    (2, 102, 'Neurologie', null),
+    (1, 111, 'Médecine générale', null),
+    (2, 111, 'Médecine générale', null),
+    (1, 112, 'Médecine générale', null),
+    (2, 112, 'Médecine générale', null),
+    (1, 201, 'Chirurgie', null),
+    (2, 201, 'Chirurgie', null),
+    (1, 202, 'Chirurgie', null),
+    (2, 102, 'Chirurgie', null);
 
 INSERT INTO monitorings
     (ID_patient, comment, symptom, date, ID_user)
 VALUES
-    (2, 'Entrée du patient', null, '2022-12-22', 3),
-    (2, 'Joyeux noël', 'Coma', '2022-12-24', 4),
-    (2, 'Nouvelle année toujours dans le coma', 'Coma', '2023-01-01', 4),
-    (2, 'Patient réveillé !', null, '2023-01-15', 4),
-    (2, 'Sortie du patient', null, '2023-01-19', 3),
-    (1, 'Entrée du patient aux urgences', null, '2023-03-06', 3),
-    (9, 'Entrée du patient en pédiatrie', null, '2023-03-04', 3),
-    (10, 'Entrée du patient en pédiatrie', null, '2023-03-04', 3),
-    (9, 'Diagnostic', 'Varicelle', '2023-03-04', 4),
-    (10, 'Diagnostic', 'Varicelle', '2023-03-04', 4),
-    (3, 'Entrée du patient en cardiologie', null, '2023-02-28', 3),
-    (3, 'Diagnostic non concluant, patient gardé en observation', null, '2023-02-28', 4);
+    (2, 'Patient admis au service Cardiologie, chambre 101 lit 1', null, '2022-12-22', 3),
+    (2, 'Diagnostique : problème cardiaque. Nécessite une greffe en urgence.', 'Problème cardiaque', '2022-12-22', 2),
+    (2, 'Greffe de coeur', null, '2022-12-28', 2),
+    (2, 'Convalescence', null, '2022-12-29', 2),
+    (2, 'Patient sorti du service Cardiologie, chambre 101 lit 1', null, '2023-01-09', 3),
+    (1, 'Patient admis au service Urgences, chambre 1 lit 1', null, '2023-03-06', 3),
+    (9, 'Patient admis au service Pédiatrie, chambre 22 lit 1', null, '2023-03-04', 3),
+    (10, 'Patient admis au service Pédiatrie, chambre 21 lit 1', null, '2023-03-04', 3),
+    (9, 'Diagnostic', 'Varicelle', '2023-03-04', 2),
+    (10, 'Diagnostic', 'Varicelle', '2023-03-04', 2),
+    (3, 'Patient admis au service Cardiologie, chambre 102 lit 1', null, '2023-02-28', 3),
+    (3, 'Diagnostic non concluant, patient gardé en observation', null, '2023-02-28', 2);
