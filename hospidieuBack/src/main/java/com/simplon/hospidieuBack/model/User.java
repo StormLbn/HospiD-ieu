@@ -30,7 +30,7 @@ public class User implements Serializable {
 	private String password;
 
 	@JsonBackReference
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "users_roles", joinColumns = {
 			@JoinColumn(name = "ID_USER", referencedColumnName = "idUser") }, inverseJoinColumns = {
 					@JoinColumn(name = "ID_ROLE", referencedColumnName = "idRole") })
