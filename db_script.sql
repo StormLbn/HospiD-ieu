@@ -1,14 +1,6 @@
---CREATE DATABASE hospidieu;
 USE hospidieu;
 
-DROP TABLE IF EXISTS users_roles;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS roles;
-DROP TABLE IF EXISTS monitorings;
-DROP TABLE IF EXISTS beds;
-DROP TABLE IF EXISTS patients;
-
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     ID_user INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50),
     firstname VARCHAR(50),
@@ -16,19 +8,19 @@ CREATE TABLE users (
     password VARCHAR(100)
     );
 
-CREATE TABLE roles (
+CREATE TABLE IF NOT EXISTS roles (
     ID_role INT PRIMARY KEY AUTO_INCREMENT,
     role_name VARCHAR(50)
     );
 
-CREATE TABLE users_roles (
+CREATE TABLE IF NOT EXISTS users_roles (
     ID_user INT,
     ID_role INT,
     FOREIGN KEY (ID_user) REFERENCES users(ID_user),
     FOREIGN KEY (ID_role) REFERENCES roles(ID_role)
     );
 
-CREATE TABLE patients (
+CREATE TABLE IF NOT EXISTS patients (
     ID_patient INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50),
     firstname VARCHAR(50),
@@ -40,7 +32,7 @@ CREATE TABLE patients (
     security_number VARCHAR(20)
     );
 
-CREATE TABLE beds (
+CREATE TABLE IF NOT EXISTS beds (
     ID_bed INT PRIMARY KEY AUTO_INCREMENT,
     bed_number INT,
     room_number INT,
@@ -49,7 +41,7 @@ CREATE TABLE beds (
     FOREIGN KEY(ID_patient) REFERENCES patients(ID_patient)
     );
 
-CREATE TABLE monitorings (
+CREATE TABLE IF NOT EXISTS monitorings (
     ID_monitoring INT PRIMARY KEY AUTO_INCREMENT,
     ID_patient INT,
     ID_user INT,
@@ -62,7 +54,7 @@ INSERT INTO users
     (name, firstname, mail, password) 
 VALUES
     ('Tournet', 'Julien', 'julien.tournet@hospidieu.fr', 'aze'),
-    ('Caudron', 'Mylène', 'mylene.caudron@hospidieu.fr', 'qsd'),
+    ('Caudron', 'MylÃ¨ne', 'mylene.caudron@hospidieu.fr', 'qsd'),
     ('Lebrun', 'Sophie', 'sophie.lebrun@hospidieu.fr', 'wxc'),
     ('Valinhas', 'Manuel', 'manuel.valinhas@hospidieu.fr', '123'),
     ('Test', 'Admin', 'admintest@mail.com', '$2a$12$BK0FF9PlD3xhcHdcG7tP8.HHluZ.D52mPJohThLP1K09s6lmA.Xu2');
@@ -116,14 +108,14 @@ VALUES
     (2, 11, 'Traumatologie'),
     (1, 12, 'Traumatologie'),
     (2, 12, 'Traumatologie'),
-    (1, 21, 'Pédiatrie'),
-    (1, 22, 'Pédiatrie'),
-    (1, 23, 'Pédiatrie'),
-    (1, 24, 'Pédiatrie'),
-    (1, 31, 'Maternité'),
-    (1, 32, 'Maternité'),
-    (1, 33, 'Maternité'),
-    (1, 34, 'Maternité'),
+    (1, 21, 'PÃ©diatrie'),
+    (1, 22, 'PÃ©diatrie'),
+    (1, 23, 'PÃ©diatrie'),
+    (1, 24, 'PÃ©diatrie'),
+    (1, 31, 'MaternitÃ©'),
+    (1, 32, 'MaternitÃ©'),
+    (1, 33, 'MaternitÃ©'),
+    (1, 34, 'MaternitÃ©'),
     (1, 101, 'Cardiologie'),
     (2, 101, 'Cardiologie'),
     (1, 102, 'Cardiologie'),
@@ -132,7 +124,7 @@ VALUES
     (1, 111, 'Neurologie'),
     (2, 111, 'Neurologie'),
     (1, 112, 'Neurologie'),
-    (2, 112, 'Médecine générale'),
+    (2, 112, 'MÃ©decine gÃ©nÃ©rale'),
     (1, 201, 'Chirurgie'),
     (2, 201, 'Chirurgie'),
     (1, 202, 'Chirurgie'),
@@ -151,15 +143,15 @@ ON DUPLICATE KEY UPDATE ID_patient=VALUES(ID_patient);
 INSERT INTO monitorings
     (ID_patient, comment, symptom, date, ID_user)
 VALUES
-    (2, 'Entrée du patient', null, '2022-12-22', 3),
-    (2, 'Joyeux noël', 'Coma', '2022-12-24', 4),
-    (2, 'Nouvelle année toujours dans le coma', 'Coma', '2023-01-01', 4),
-    (2, 'Patient réveillé !', null, '2023-01-15', 4),
+    (2, 'EntrÃ©e du patient', null, '2022-12-22', 3),
+    (2, 'Joyeux noÃ«l', 'Coma', '2022-12-24', 4),
+    (2, 'Nouvelle annÃ©e toujours dans le coma', 'Coma', '2023-01-01', 4),
+    (2, 'Patient rÃ©veillÃ© !', null, '2023-01-15', 4),
     (2, 'Sortie du patient', null, '2023-01-19', 3),
-    (1, 'Entrée du patient aux urgences', null, '2023-03-06', 3),
-    (9, 'Entrée du patient en pédiatrie', null, '2023-03-04', 3),
-    (10, 'Entrée du patient en pédiatrie', null, '2023-03-04', 3),
+    (1, 'EntrÃ©e du patient aux urgences', null, '2023-03-06', 3),
+    (9, 'EntrÃ©e du patient en pÃ©diatrie', null, '2023-03-04', 3),
+    (10, 'EntrÃ©e du patient en pÃ©diatrie', null, '2023-03-04', 3),
     (9, 'Diagnostic', 'Varicelle', '2023-03-04', 4),
     (10, 'Diagnostic', 'Varicelle', '2023-03-04', 4),
-    (3, 'Entrée du patient en cardiologie', null, '2023-02-28', 3),
-    (3, 'Diagnostic non concluant, patient gardé en observation', null, '2023-02-28', 4);
+    (3, 'EntrÃ©e du patient en cardiologie', null, '2023-02-28', 3),
+    (3, 'Diagnostic non concluant, patient gardÃ© en observation', null, '2023-02-28', 4);
